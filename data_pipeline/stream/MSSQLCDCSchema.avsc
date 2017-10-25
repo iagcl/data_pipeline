@@ -1,0 +1,19 @@
+{
+     "type": "record",
+     "name": "MSSQLCDCSchema",
+     "fields": [
+       { "name": "record_type", "type": "string" },
+       { "name": "batch_id", "type": "string" },
+       { "name": "record_count", "type": "int" },
+       { "name": "operation_type", "type": "string" },
+       { "name": "operation_code", "type": "string" },
+       { "name": "table_name", "type": "string" },
+       { "name": "statement_id", "type": "string" },
+       { "name": "commit_lsn", "type": "string" },
+       { "name": "commit_timestamp", "type": "string" },
+       { "name": "message_sequence", "type": "string" },
+       { "name": "column_names", "type": "string" },
+       { "name": "column_values", "type": "string" },
+       { "name": "primary_key_fields", "type": "string" }
+     ]
+} 

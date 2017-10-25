@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p class="text-primary font-weight-bold" style="font-size:18px;">Process List</p>   
+<form action"." method="POST">
+<table class="table">
+  <tr>
+    <td>
+      <label for="profile" style="font-size:16px;">Profile</label>
+      <input class="form-control" name="profile" id="profile" type="text">
+    </td>
+    <td>
+      <label for="status"  style="font-size:16px;">Status</label>
+      <select class="form-control" name="status" id="status">
+       <option>ALL</option>
+       <option>SUCCESS</option>
+       <option>IN_PROGRESS</option>
+       <option>WARNING</option>
+       <option>ERROR</option>
+       <option>KILLED</option>
+     </select>
+    </td>
+    <td>
+      <label for="sourcesystem"  style="font-size:16px;">Source System</label> 
+      <input class="form-control" name="sourcesystem"  id="sourcesystem" type="text">
+    </td>
+    
+    <td style="vertical-align:bottom;">  
+      <button type="submit" class="btn btn-primary"  id="search-form" name="search-form" >Search</button>
+      <input TYPE="button" class="btn btn-primary"  VALUE="Reset"
+        onclick="window.location.href='/processlist';">  
+    </td> 
+  </tr>
+</table>
+</form>   
+ 
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>RunID</th>
+        <th>Profile</th>
+        <th>Process</th>
+        <th>Status</th>
+        <th>Source</th>
+        <th>Source Schema</th>
+        <th>Target Schema</th>
+        <th>Min LSN</th>
+        <th>Max LSN</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Duration</th>
+        <th>Comment</th>
+        <th>Errors</th>
+        <th>Info</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% for process in processControl %}
+        <tr>
+           <td><a href="/processdetails/{{ process.id|safe }}">{{ process.id|safe }}</a></td> 
+           <td class="text-nowrap">{{ process.profile_name|safe|trim }}-{{ process.profile_version|safe|trim }}</td> 
+           <td>{{ process.process_code|safe }}</td> 
+           <td><a href="/processdetails/{{ process.id|safe }}">{{ process.status|safe }}</a></td> 
+           <td>{%if process.source_system_code %} {{ process.source_system_code|safe }} {% else %}&nbsp;{% endif %}</td> 
+           <td>{%if process.source_region %} {{ process.source_region|safe }} {% else %}&nbsp;{% endif %}</td> 
+           <td>{%if process.target_region %} {{ process.target_region|safe }} {% else %}&nbsp;{% endif %}</td> 
+           <td>{{ process.min_lsn|safe|trim }}</td> 
+           <td>{{ process.max_lsn|safe|trim }}</td> 
+           <td class="text-nowrap">{%if process.process_starttime %}{{ process.process_starttime.strftime('%Y-%m-%d %H:%M:%S')|safe }} {% else %}&nbsp;{% endif %}</td> 
+           <td class="text-nowrap">{%if process.process_endtime %}{{ process.process_endtime.strftime('%Y-%m-%d %H:%M:%S')|safe }} {% else %}&nbsp;{% endif %}</td> 
+           <td class="text-right">{{ process.duration|safe }}</td> 
+           <td>{{ process.comment|safe }}</td>
+           <td>{%if process.errorlog %} <a href="/viewfile/{{ process.errorlog.replace("/","|")|safe }}">view</a> {% else %}&nbsp;{% endif %}</td> 
+           <td>{%if process.infolog %} <a href="/viewfile/{{ process.infolog.replace("/","|")|safe }}">view</a> {% else %}&nbsp;{% endif %}</td> 
+        </tr>
+        {% endfor %}
+     </tbody>
+  </table>
+
+{% endblock %}

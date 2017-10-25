@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p class="text-primary font-weight-bold" style="font-size:18px;">System Profiles</p>    
+<form action"." method="POST">
+ <div class="form-group row">
+   <div class="col-xs-2">
+     <label for="profile" style="font-size:16px;">Profile Name</label>
+     <select class="form-control" name="profile" id="profile">
+       <option>ALL</option>
+	   {% for name in names %}
+       <option>{{ name.profile_name|safe }}</option> 
+       {% endfor %}
+     </select>   
+   </div>
+   <div class="col-xs-2">
+     <label for="profile" style="font-size:16px;">Profile Version</label>
+     <input class="form-control" name="version" id="version" type="text">
+   </div>  
+   <div class="col-xs-2">
+     <label for="sourcesystem" style="font-size:16px;">Source System</label>
+     <input class="form-control" name="sourcesystem"  id="sourcesystem" type="text">
+   </div>
+
+   <div class="col-xs-6">
+     <button type="submit" class="btn btn-primary" name="search-form" >Search</button>
+     {% if g.user.is_authenticated %}
+     <input TYPE="button" class="btn btn-primary" VALUE="Add New Profile"
+        onclick="window.location.href='/profileadd';">
+     {% endif %}        
+     <input TYPE="button" class="btn btn-primary" VALUE="Scheduled Jobs"
+        onclick="window.location.href='/schedulelist';"> 
+   </div>
+  </div>
+</form>  
+
+       
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>Profile</th>
+        <th>Version</th>
+        <th>Source System Code</th>
+        <th>Source Database Type</th>
+        <th>Target Database Type</th>
+        <th>Active</th>
+
+        </tr>
+    </thead>
+    <tbody>
+	{% for profile in profiles %}
+        <tr>
+           <td><input TYPE="button" class="btn btn-primary btn-xs" VALUE="View Objects" onclick="window.location.href='/profileobjects/{{ profile.profile_name|safe }}/{{ profile.version|safe }}';"> </td>
+           <td>
+           {% if g.user.is_authenticated and profile.server_path %}
+           <input TYPE="button" class="btn btn-primary btn-xs" VALUE="Run InitSync" onclick="window.location.href='/run/{{ profile.id|safe }}';"> 
+           <input TYPE="button" class="btn btn-primary btn-xs" VALUE="Schedule" onclick="window.location.href='/profileschedulelist/{{ profile.id }}';">
+           {% else %}&nbsp;{% endif %}</td> 
+           <td><a href="/profileupdate/{{ profile.id|safe }}">{{ profile.profile_name|safe }}</a></td> 
+           <td>{{ profile.version|safe }}</td> 
+           <td>{{ profile.source_system_code|safe }}</td> 
+           <td>{{ profile.source_database_type|safe }}</td> 
+           <td>{{ profile.target_database_type|safe }}</td> 
+           <td>{{ profile.active_ind|safe }}</td>
+           </td>
+         </tr>
+        {% endfor %}
+     </tbody>
+  </table>
+
+{% endblock %}

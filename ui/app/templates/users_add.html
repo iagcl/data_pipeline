@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+   
+<p><h4>Add a new User</h4></p>    
+{% from "_formhelpers.html" import render_field %}
+<form method=post class="form-horizontal">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.username) }}
+    {{ render_field(form.firstname) }}
+    {{ render_field(form.lastname) }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.role) }}
+    <div class="control-group">
+    <div class="controls">
+    <!-- The form submit buttons -->   
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="button" class="btn btn-primary" value="Cancel" onclick="window.location.href='/users';">
+    </div>
+    </div>
+</form>
+{% endblock %}

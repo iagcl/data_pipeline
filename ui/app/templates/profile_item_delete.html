@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p class="text-primary font-weight-bold" style="font-size:18px;">Confirm to delete the following Source System Profile item</p>    
+
+
+<form method=post class="form-horizontal">
+  <div class="form-group row">
+    <label for="profile_name" class="col-sm-2 col-form-label">Profile Name</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" value="{{profile.profile_name|safe}}" id="profile_name" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="version" class="col-sm-2 col-form-label">Profile Version</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" value="{{profile.version|safe}}" id="version" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="source_system_code" class="col-sm-2 col-form-label">Source System</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" value="{{profile.source_system_code|safe}}" id="source_system_code" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="source_region" class="col-sm-2 col-form-label">Source Schema</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" value="{{profile.source_region|safe}}" id="source_region" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="object_name" class="col-sm-2 col-form-label">Object Name</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" value="{{profile.object_name|safe}}" id="object_name" disabled>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <div class="controls">
+    <!-- The form submit buttons -->   
+      <button type="submit" class="btn btn-primary">Delete</button>
+      <input type="button" class="btn btn-default" name="cancel" value="Cancel" onClick="window.location.href='/profileobjects/{{ profile.profile_name }}/{{ profile.version }}';" >
+    </div>
+  </div>
+</form>
+
+{% endblock %}
+    

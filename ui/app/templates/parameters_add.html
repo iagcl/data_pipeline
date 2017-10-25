@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+   
+<p class="text-primary font-weight-bold" style="font-size:18px;">Add a new Parameter</p>    
+{% from "_formhelpers.html" import render_field %}
+<form method=post class="form-horizontal">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.parameter_name) }}
+    {{ render_field(form.parameter_type) }}
+    {{ render_field(form.parameter_value) }}
+    <div class="control-group">
+    <div class="controls">
+    <!-- The form submit buttons -->   
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="button" class="btn btn-primary" value="Cancel" onclick="window.location.href='/parameters';">
+    </div>
+    </div>
+</form>
+{% endblock %}

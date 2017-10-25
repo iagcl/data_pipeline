@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p class="text-primary font-weight-bold" style="font-size:18px;">Add new System Profile Items Wizard</p>
+  
+
+   <div class="progress">
+     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="2" style="width: 100%;">
+       Step 2 of 2
+     </div>
+   </div>
+  
+   <div class="navbar">
+      <div class="navbar-inner">
+            <ul class="nav nav-pills">
+               <li><a href="#">1. Select Schemas</a></li>
+               <li class="active"><a href="#">2. Select Objects</a></li>
+               <li><a href="#">DONE</a></li>
+            </ul>
+      </div>
+    </div>
+    <hr>   
+    
+<form class="form-inline" action"." method="POST">
+  
+  <div class="form-group">
+
+      <input type="button" class="btn btn-primary" value="Previous" onclick="goBack()">
+      <button type="submit" class="btn btn-primary" id="search-form" name="search-form" >Next</button>
+ 
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Schema</th>
+        <th>Object</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% for object in objects %}
+        <tr>
+          <td><div class="checkbox">       
+              <label><input type="checkbox" name="{{ object[0]}}|{{ object[1]|trim }}" value="Y"></label></div>
+          </td>
+          <td>{{object[0]|safe}}</td>
+          <td>{{object[1]|safe|trim}}</td>
+        </tr>
+    {% endfor %}
+     </tbody>
+  </table>
+
+  
+  </form>  
+  
+{% endblock %}

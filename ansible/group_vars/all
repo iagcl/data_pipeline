@@ -1,0 +1,4 @@
+---
+
+tmpdir: "/tmp/oracle"
+virtualenv: "{{ ansible_env.HOME }}/venvs/dpenv"

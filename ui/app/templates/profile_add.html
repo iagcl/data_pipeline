@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+               
+<p class="text-primary font-weight-bold" style="font-size:18px;">Add a new System Profile Wizard</p>
+   
+   <div class="progress">
+     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 33%;">
+       Step 1 of 3
+     </div>
+   </div>
+  
+   <div class="navbar">
+      <div class="navbar-inner">
+            <ul class="nav nav-pills">
+              <li class="active"><a href="#">1. Profile Details</a></li>
+               <li><a href="#">2. Select Schemas</a></li>
+               <li><a href="#">3. Select Objects</a></li>
+               <li><a href="#">DONE</a></li>
+            </ul>
+      </div>
+    </div>
+    <hr>    
+{% from "_formhelpers.html" import render_field %}
+
+<form method=post class="form-horizontal">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.profile_name) }}
+    {{ render_field(form.version) }}
+    {{ render_field(form.source_system) }}
+    {{ render_field(form.source_system_code) }}
+    {{ render_field(form.source_database_type) }}
+    {{ render_field(form.source_connection) }} 
+    {{ render_field(form.target_system) }}
+    {{ render_field(form.target_system_code) }}
+    {{ render_field(form.target_database_type) }}
+    {{ render_field(form.target_connection) }}
+    {{ render_field(form.active_ind) }}
+    {{ render_field(form.description) }}       
+    <div class="control-group">
+    <div class="controls">
+    <!-- The form submit buttons -->   
+    <button type="submit" class="btn btn-primary">Next</button>
+    <input type="button" class="btn btn-primary" value="Cancel" onclick="window.location.href='/profilelist';">
+    </div>
+    </div>
+</form>
+{% endblock %}

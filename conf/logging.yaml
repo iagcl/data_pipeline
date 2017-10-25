@@ -1,0 +1,42 @@
+---
+version: 1
+disable_existing_loggers: False
+formatters:
+    simple:
+        format: "%(asctime)s - %(name)s - %(levelname)s - [%(process)d] %(message)s"
+
+handlers:
+    console:
+        class: logging.StreamHandler
+        level: DEBUG
+        formatter: simple
+        stream: ext://sys.stdout
+
+    info_file_handler:
+        class: logging.FileHandler
+        level: DEBUG
+        formatter: simple
+        filename: info.log
+        encoding: utf8
+
+    error_file_handler:
+        class: logging.FileHandler
+        level: ERROR
+        formatter: simple
+        filename: error.log
+        encoding: utf8
+
+loggers:
+    __main__:
+        level: DEBUG
+        handlers: [console, info_file_handler, error_file_handler]
+        propagate: no
+    data_pipeline:
+        level: DEBUG
+        handlers: [console, info_file_handler, error_file_handler]
+        propagate: no
+
+root:
+    level: ERROR
+    handlers: [console, info_file_handler, error_file_handler]
+

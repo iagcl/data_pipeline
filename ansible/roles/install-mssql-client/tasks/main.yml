@@ -1,0 +1,16 @@
+---
+
+- debug:
+    msg: "{{ ansible_distribution }}"
+
+- name: Install pymssql python module if we're running on RedHat
+  pip:
+    name: pymssql
+    virtualenv: "{{ virtualenv }}"
+  when: ansible_distribution == "RedHat"
+
+- name: Install pymssql python module from git if we're running on MacOS
+  pip:
+    name: pymssql
+    virtualenv: "{{ virtualenv }}"
+  when: ansible_distribution == "MacOS"

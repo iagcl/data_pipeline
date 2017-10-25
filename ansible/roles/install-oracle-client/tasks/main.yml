@@ -1,0 +1,23 @@
+---
+
+- name: Install oracle client
+  yum:
+    name: "{{ tmpdir }}/oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm,{{ tmpdir }}/oracle-instantclient12.2-devel-12.2.0.1.0-1.x86_64.rpm"
+    state: present
+  become: true
+  become_method: sudo
+
+- name: Adding the path in the bashrc files
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    line: "{{ item.line }}"
+    insertafter: 'EOF'
+    state: present
+  with_items:
+    - { line: "export ORACLE_HOME=/usr/lib/oracle/12.2/client64/" }
+    - { line: "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME/lib" }
+
+- name: Install cx_Oracle python module
+  pip:
+    name: "cx_Oracle"
+    virtualenv: "{{ virtualenv }}"

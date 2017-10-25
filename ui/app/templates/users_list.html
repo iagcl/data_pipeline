@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p><h4>Users</h4></p>    
+<form action"." method="POST">
+ <div class="form-group row">
+   <div class="col-xs-3">
+     <label for="role">Roles</label>
+     <select class="form-control" name="role" id="role">
+       <option selected="selected">ALL</option>
+       <option>Admin</option>
+       <option>Manager</option>
+       <option>User</option>
+     </select>
+   </div>
+
+   <div class="col-xs-3">
+     <button type="submit" class="btn btn-primary" name="search-form" >Search</button>
+     <input TYPE="button" class="btn btn-primary" VALUE="Add New User"
+        onclick="window.location.href='/adduser';"> 
+   </div>
+  </div>
+</form>  
+
+       
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>User Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Registration Date</th>                                  
+      </tr>
+    </thead>
+    <tbody>
+	{% for user in users %}
+        <tr>
+           <td><a href="/updateuser/{{ user.id|safe }}">{{ user.username|safe }}</a></td> 
+           <td>{{ user.firstname|safe }}</td> 
+           <td>{{ user.lastname|safe }}</td> 
+           <td>{{ user.email|safe }}</td> 
+           <td>{{ user.role|safe }}</td> 
+           <td>{{ user.registered_on|safe }}</td> 
+        </tr>
+        {% endfor %}
+     </tbody>
+  </table>
+
+{% endblock %}

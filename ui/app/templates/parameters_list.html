@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p class="text-primary font-weight-bold" style="font-size:18px;">Process Control Parameters</p>    
+<form action"." method="POST">
+ <div class="form-group row">
+   <div class="col-xs-6">
+     <label for="parameter_type"  style="font-size:16px;">Parameter Type</label>
+     <select class="form-control" name="parameter_type" id="parameter_type">
+       <option selected="selected">ALL</option>
+       <option>VARCHAR</option>
+       <option>NUMERIC</option>
+       <option>DATE</option>          
+     </select>
+   </div>
+
+   <div class="col-xs-6">
+     <button type="submit" class="btn btn-primary" name="search-form" >Search</button>
+     <input TYPE="button" class="btn btn-primary" VALUE="Add New Parameter"
+        onclick="window.location.href='/addparameter';"> 
+   </div>
+  </div>
+</form>  
+
+       
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Value</th>                           
+      </tr>
+    </thead>
+    <tbody>
+	{% for parameter in parameters %}
+        <tr>
+           <td><a href="/updateparameter/{{ parameter.id|safe }}">{{ parameter.parameter_name|safe }}</a></td> 
+           <td>{{ parameter.parameter_type|safe }}</td> 
+           <td>{{ parameter.parameter_value|safe }}</td> 
+        </tr>
+        {% endfor %}
+     </tbody>
+  </table>
+
+{% endblock %}

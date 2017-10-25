@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<h1>Simple Line Chart</h1>
+<!-- bar chart canvas element -->
+<canvas id="myChart" width="600" height="400"></canvas>
+<p id="caption">The chart is displaying a simple line chart.</p>
+<script>
+// Global parameters:
+// do not resize the chart canvas when its container does (keep at 600x400px)
+Chart.defaults.global.responsive = false;
+ 
+// define the chart data
+var chartData = {
+  labels : [{% for item in labels %}
+             "{{item}}",
+            {% endfor %}],
+  datasets : [{
+      label: '{{ legend }}',
+      fill: true,
+      lineTension: 0.1,
+      backgroundColor: "rgba(75,192,192,0.4)",
+      borderColor: "rgba(75,192,192,1)",
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: "rgba(75,192,192,1)",
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(75,192,192,1)",
+      pointHoverBorderColor: "rgba(220,220,220,1)",
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data : [{% for item in values %}
+                {{item}},
+              {% endfor %}],
+      spanGaps: false
+  }]
+}
+ 
+// get chart canvas
+var ctx = document.getElementById("myChart").getContext("2d");
+ 
+// create the chart using the chart canvas
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: chartData
+});
+
+
+</script>
+
+<h1>Simple Bar Chart</h1>
+<!-- bar chart canvas element -->
+<canvas id="myBarChart" width="600" height="400"></canvas>
+<p id="caption">The chart is displaying a simple pie chart.</p>
+<script>
+// define the chart data
+
+// get chart canvas
+var ctx3 = document.getElementById("myBarChart").getContext("2d");
+var barData = {
+  labels : [{% for item in labels %}
+             "{{item}}",
+            {% endfor %}],
+  datasets : [{
+      label: '{{ legend }}',
+
+      data : [{% for item in values %}
+                {{item}},
+              {% endfor %}],
+      spanGaps: false
+  }]
+}
+
+ 
+// create the chart using the chart canvas
+
+var myBarChart = new Chart(ctx3, {
+    type: 'bar',
+    data: barData
+});
+</script>
+
+
+<h1>Simple Pie Chart</h1>
+<!-- bar chart canvas element -->
+<canvas id="myPieChart" width="600" height="400"></canvas>
+<p id="caption">The chart is displaying a simple pie chart.</p>
+<script>
+// define the chart data
+var data = {
+    datasets: [{
+        data: [10, 20, 30, 20],
+        backgroundColor: ['#2c9c69', '#dbba34 ', '#c62f29', '#637b85'],
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: [
+        'Green',
+        'Yellow',
+        'Red',
+        'Dark Blue',
+    ]
+};
+var ctx2 = document.getElementById("myPieChart").getContext("2d");
+ 
+// create the chart using the chart canvas
+
+var myDoughnutChart = new Chart(ctx2, {
+    type: 'doughnut',
+    data: data
+});
+</script>
+
+{% endblock %}
+    

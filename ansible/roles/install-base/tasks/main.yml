@@ -1,0 +1,41 @@
+---
+
+- name: Update yum
+  yum:
+    name: "*"
+    state: latest
+  become: true
+  become_method: sudo
+
+- name: Manually create the initial virtualenv
+  command: "virtualenv {{ virtualenv }} -p python2.7"
+  args:
+    creates: "{{ virtualenv }}"
+
+- name: Install package dependencies via yum
+  yum:
+    name: "{{ item.name }}"
+    state: present
+  with_items:
+    - { name: "*" }
+    - { name: "@Development tools" }
+    - { name: "python-virtualenv" }
+    - { name: "python-pip" }
+    - { name: "python-cffi" }
+    - { name: "libffi-devel" }
+    - { name: "java-1.8.0-openjdk-1.8.0.121" }
+    - { name: "python-devel" }
+    - { name: "python-wheel" }
+    - { name: "libaio" }
+    - { name: "freetds" }
+    - { name: "freetds-devel" }
+    - { name: "librdkafka-devel" }
+    - { name: "openssl-devel" }
+  become: true
+  become_method: sudo
+
+- name: Install base python dependencies
+  shell: "{{ virtualenv }}/bin/python {{ inventory_dir | dirname }}/setup.py install"
+
+- name: Upgrade pip
+  shell: "{{ virtualenv }}/bin/pip install --upgrade pip"

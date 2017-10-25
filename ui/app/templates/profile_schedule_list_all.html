@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p class="text-primary font-weight-bold" style="font-size:18px;">Scheduled Jobs</p>    
+
+<form action"." method="POST">
+
+<table class="table">
+  <tr>
+    <td>
+      <label for="job_name" style="font-size:16px;">Job Name</label>
+      <input class="form-control" name="job_name" id="job_name" type="text">
+    </td>
+    <td style="vertical-align:bottom;">  
+      <button type="submit" class="btn btn-primary"  id="search-form" name="search-form" >Search</button>
+      <input TYPE="button" class="btn btn-primary"  VALUE="Reset"
+        onclick="window.location.href='/schedulelist';">  
+    </td> 
+  </tr>
+</table>
+
+</form>  
+       
+  <table class="table table-striped">
+    <thead>
+      <tr>
+
+        <th>Job Name</th>
+        <th>Trigger</th>
+        <th>Next Run Time</th>
+        <th>&nbsp;</th>
+                                  
+      </tr>
+    </thead>
+    <tbody>
+	{% for job in jobs %}
+        <tr>
+
+           <td>{{ job.name|safe }}</td> 
+           <td>{{ job.trigger|safe }}</td> 
+           <td>{{ job.next_run_time.strftime("%Y-%m-%d %H:%M:%S")|safe }}</td> 
+
+           <td><input TYPE="button" class="btn btn-primary btn-xs" VALUE="Delete" onclick="window.location.href='/scheduledelete/{{ job.id|safe }}';"> 
+           </td>
+        </tr>
+    {% endfor %}
+     </tbody>
+  </table>
+
+{% endblock %}

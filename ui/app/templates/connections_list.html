@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p class="text-primary font-weight-bold" style="font-size:18px;">Connections</p>    
+
+<form action"." method="POST">
+ <div class="form-group row">
+   <div class="col-xs-4">
+     <label for="category" style="font-size:16px;">Connection Category</label>
+     <select class="form-control" name="category" id="category">
+       <option selected="selected">ALL</option>
+       <option>Source</option>
+       <option>Target</option>
+     </select>
+   </div>
+   <div class="col-xs-4">
+     <label for="database" style="font-size:16px;">Database Type</label>
+     <select class="form-control" name="database" id="database">
+       <option selected="selected">ALL</option>
+       <option>Oracle</option>
+       <option>MSSQL</option>
+       <option>Postgres</option>
+       <option>GreenPlum</option>
+       <option>DB2</option>                          
+     </select>
+   </div>
+
+   <div class="col-xs-4">
+     <button type="submit" class="btn btn-primary" name="search-form" >Search</button>
+     {% if g.user.is_authenticated %}
+     <input TYPE="button" class="btn btn-primary" VALUE="Add New Connection"
+        onclick="window.location.href='/addconnection';"> 
+     {% endif %}
+   </div>
+  </div>
+</form>  
+
+       
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Connection</th>
+        <th>Category</th>
+        <th>Database</th>
+        <th>Server Name</th>
+        <th>Port Number</th>
+        <th>SID or Database Name</th>
+        <th>User Name</th>
+        <th>Notes</th>                                   
+      </tr>
+    </thead>
+    <tbody>
+	{% for connection in connections %}
+        <tr>
+           <td>
+           {% if g.user.is_authenticated %}<input TYPE="button" class="btn btn-primary btn-xs" VALUE="Browse Objects" onclick="window.location.href='/browseconnection/{{ connection.connection_name|safe }}/';"> 
+           {% else %}&nbsp;
+           {% endif %}
+           </td>
+           <td><a href="/updateconnection/{{ connection.id|safe }}">{{ connection.connection_name|safe }}</a></td> 
+           <td>{{ connection.connection_category|safe }}</td> 
+           <td>{{ connection.database_type|safe }}</td> 
+           <td class="text-nowrap">{{ connection.hostname|safe }}</td> 
+           <td>{{ connection.portnumber|safe }}</td> 
+           <td>{{ connection.database_name|safe }}</td> 
+           <td>{{ connection.username|safe }}</td> 
+           <td>{{ connection.notes|safe }}</td>
+        </tr>
+        {% endfor %}
+     </tbody>
+  </table>
+
+{% endblock %}

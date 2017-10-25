@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p class="text-primary font-weight-bold" style="font-size:18px;">Scheduled Jobs for Profile {{ profile.profile_name|safe|trim }}-{{ profile.version|safe }}</p>    
+
+<div>
+    <input TYPE="button" class="btn btn-primary btn-xs" VALUE="Schedule InitSync" onclick="window.location.href='/scheduleinitsync/{{ profile.id|safe }}';">  
+    <input TYPE="button" class="btn btn-primary btn-xs" VALUE="Schedule CDC" onclick="window.location.href='/schedulecdc/{{ profile.id|safe }}';">  
+</div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+
+        <th>Job Name</th>
+        <th>Trigger</th>
+        <th>Next Run Time</th>
+        <th>&nbsp;</th>
+                                  
+      </tr>
+    </thead>
+    <tbody>
+    {% set profile_name = profile.profile_name +"-" + profile.version|string %}
+
+	{% for job in jobs %}
+        {% if job.name.find(profile_name) == 0 %}
+        <tr>
+
+           <td>{{ job.name|safe }}</td> 
+           <td>{{ job.trigger|safe }}</td> 
+           <td>{{ job.next_run_time.strftime("%Y-%m-%d %H:%M:%S")|safe }}</td> 
+
+           <td><input TYPE="button" class="btn btn-primary btn-xs" VALUE="Delete" onclick="window.location.href='/profilescheduledelete/{{ job.id|safe }}/{{ profile.id|safe }}';"> 
+           </td>
+        </tr>
+        {% endif %} 
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

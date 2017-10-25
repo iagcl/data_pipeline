@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+ 
+   
+<p class="text-primary font-weight-bold" style="font-size:18px;">Sign in to Data pipeline Application</p>    
+{% from "_formhelpers.html" import render_field %}
+<form method=post class="form-horizontal">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.username) }}
+    {{ render_field(form.password) }}
+    <div class="control-group">
+    <div class="controls">
+    <!-- The form submit buttons -->   
+    <button type="submit" class="btn btn-primary">Login</button>
+    <input type="button" class="btn btn-primary" value="Cancel" onclick="window.location.href='/';">
+    </div>
+    </div>
+</form>
+{% endblock %}

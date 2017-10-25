@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p class="text-primary font-weight-bold" style="font-size:18px;">Add a new Profile item</p>    
+{% from "_formhelpers.html" import render_field %}
+
+
+<form method=post class="form-horizontal">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.object_name) }}
+    {{ render_field(form.active_ind) }}
+    {{ render_field(form.min_lsn) }}
+    {{ render_field(form.max_lsn) }}
+    {{ render_field(form.last_status) }}
+    {{ render_field(form.last_process_code) }}
+    {{ render_field(form.notes) }}
+    {{ render_field(form.query_condition) }}       
+    <div class="control-group">
+    <div class="controls">
+    <!-- The form submit buttons -->   
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="button" class="btn btn-default" name="cancel" value="Cancel" onClick="window.location.href='/profileobjects/{{ profile.profile_name }}/{{ profile.version }}';" >
+    </div>
+    </div>
+</form>
+
+
+{% endblock %}
+    

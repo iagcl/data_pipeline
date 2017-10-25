@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p><h4>Command Output</h4></p>    
+      
+<pre>{{ out }}</pre>
+<div class="controls">
+    <!-- The navigation buttons -->   
+    <input type="button" class="btn btn-primary" value="Back to Profiles" onclick="window.location.href='/profilelist';">
+    <input type="button" class="btn btn-primary" value="Processes" onclick="window.location.href='/processlist';">
+</div>
+
+{% endblock %}

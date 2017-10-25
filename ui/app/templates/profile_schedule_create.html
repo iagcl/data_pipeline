@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p class="text-primary font-weight-bold" style="font-size:18px;">Schedule a Job for profile {{ profile.profile_name|safe|trim }}-{{ profile.version|safe }}</p>    
+
+
+<form action"." method="POST">
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#initsync">Initial  Data Replication</a></li>
+  <li><a data-toggle="tab" href="#cdc">Cnage Data Capture</a></li>
+
+</ul>
+
+<div class="tab-content">
+  <div id="initsync" class="tab-pane fade in active">
+
+    <div class="form-group ">
+      <label for="schedule_type" >Scheduling Type</label>
+      <div class="radio-inline">
+        <label><input type="radio" name="schedule_type" id="schedule_type" value="oneoff" checked="checked"> One- off</label>
+      </div>
+      <div class="radio-inline">
+        <label><input type="radio" name="schedule_type" id="schedule_type" value="recurring"> Recurring</label>
+      </div>
+    </div> 
+
+
+    <div class="panel panel-primary">
+    
+      <div class="panel-heading">
+        <h3 class="panel-title">One Off Scheduling</h3>
+      </div>
+      
+      <div class="panel-body">
+      
+        <div class="form-group ">
+            <label for="run_date" class="col-form-label">Run Date</label>
+            <input class="form-control" type="text" placeholder="YYYY-MM-DD" name="run_date" id="run_date">
+        </div>
+
+        <div class="form-group ">
+            <label for="run_time" class="col-form-label">Run Time</label>
+            <input class="form-control" type="text" placeholder="HH:MM:SS" name="run_time" id="run_time">
+        </div>
+        
+      </div>
+      
+    </div>
+
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Recurring Scheduling</h3>
+      </div>
+      <div class="panel-body">
+
+    <div class="form-group ">
+      <label for="run_days" >Run on Days</label>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="run_days" id="run_days" value="mon"> Mon</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="run_days" id="run_days" value="tue"> Tue</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="run_days" id="run_days" value="wed"> Wed</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="run_days" id="run_days" value="thu"> Thu</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="run_days" id="run_days" value="fri"> Fri</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="run_days" id="run_days" value="sat"> Sat</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="run_days" id="run_days" value="sun"> Sun</label>
+      </div>
+    </div> 
+    <div class="form-group ">
+      <label for="run_hours" class="col-form-label">Run Hours</label>
+        <input class="form-control" type="text" placeholder="00-23" name="run_hours" id="run_hours">
+    </div>
+    <div class="form-group ">
+      <label for="run_minutes" class="col-form-label">Run Minutes</label>
+        <input class="form-control" type="text" placeholder="00,15,30,45" name="run_minutes" id="run_minutes">
+    </div>
+
+
+      </div>
+    </div>
+
+
+  </div>
+  
+  <div id="cdc" class="tab-pane fade">
+   
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Recurring Scheduling</h3>
+      </div>
+      <div class="panel-body">
+
+    <div class="form-group ">
+      <label for="run_days" >Run on Days</label>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="cdc_run_days" id="cdc_run_days" value="mon"> Mon</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="cdc_run_days" id="cdc_run_days" value="tue"> Tue</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="cdc_run_days" id="cdc_run_days" value="wed"> Wed</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="cdc_run_days" id="cdc_run_days" value="thu"> Thu</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="cdc_run_days" id="cdc_run_days" value="fri"> Fri</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="cdc_run_days" id="cdc_run_days" value="sat"> Sat</label>
+      </div>
+      <div class="checkbox-inline">
+        <label><input type="checkbox" name="cdc_run_days" id="cdc_run_days" value="sun"> Sun</label>
+      </div>
+    </div> 
+    <div class="form-group ">
+      <label for="run_hours" class="col-form-label">Run Hours</label>
+        <input class="form-control" type="text" placeholder="00-23" name="cdc_run_hours" id="cdc_run_hours">
+    </div>
+    <div class="form-group ">
+        <label for="run_minutes" class="col-form-label">Run Minutes</label>
+        <input class="form-control" type="text" placeholder="00,15,30,45" name="cdc_run_minutes" id="cdc_run_minutes">
+    </div>
+   </div>
+  </div>
+
+  </div>
+    
+<button type="submit" class="btn btn-primary" name="search-form" >Submit</button>
+<input TYPE="button" class="btn btn-primary" VALUE="Cancel"
+        onclick="window.history.back();"/>     
+</div>
+
+</form>  
+
+ 
+{% endblock %}

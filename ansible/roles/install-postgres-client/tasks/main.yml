@@ -1,0 +1,13 @@
+---
+
+- name: Install postgres-devel
+  yum:
+    name: postgresql-devel
+    state: latest
+  become: true
+  become_method: sudo
+
+- name: Install psycopg2 python module
+  pip:
+    name: "psycopg2>=2.7.1"
+    virtualenv: "{{ virtualenv }}"

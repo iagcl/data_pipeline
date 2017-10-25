@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p><h4>Display Schemas and Tables</h4></p>   
+<form class="form-inline" action"." method="POST">
+  
+  <div class="form-group">
+      <label for="status">Select a Schemas</label>
+      <select class="form-control" name="schema_name" id="schema_name">
+
+       	{% for schema in schemas %}
+        <option> {{schema[0]}}</option>
+        {% endfor %}
+     </select>
+    </div>
+
+    
+
+      <button type="submit" class="btn btn-primary" id="search-form" name="search-form" >Show Tables</button>
+      <input TYPE="button" class="btn btn-primary" VALUE="Cancel"
+        onclick="window.location.href='/connections';">  
+ 
+
+</form>   
+ 
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Object Name</th>
+
+      </tr>
+    </thead>
+    <tbody>
+	{% for object in objects %}
+        <tr>
+
+           <td>
+             <div class="checkbox">
+               <label><input type="checkbox" name="{{ object[0]|safe|trim }}" value="">{{ object[0]|safe|trim }}</label>
+             </div>
+           </td> 
+
+        </tr>
+    {% endfor %}
+     </tbody>
+  </table>
+
+{% endblock %}

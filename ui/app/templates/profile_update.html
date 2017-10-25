@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p><h4>Update System Profile</h4></p>    
+{% from "_formhelpers.html" import render_field %}
+
+
+<form method=post class="form-horizontal">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.profile_name) }}
+    {{ render_field(form.version) }}
+    {{ render_field(form.source_system) }}
+    {{ render_field(form.source_system_code) }}
+    {{ render_field(form.source_database_type) }}
+    {{ render_field(form.source_connection) }}
+    {{ render_field(form.target_system) }}
+    {{ render_field(form.target_system_code) }}
+    {{ render_field(form.target_database_type) }}
+    {{ render_field(form.target_connection) }}
+    {{ render_field(form.active_ind) }}
+    {{ render_field(form.server_path) }}
+    {{ render_field(form.description) }}        
+    <div class="control-group">
+    <div class="controls">
+    <!-- The form submit buttons -->  
+    {% if g.user.is_authenticated %}   
+    <button type="submit" class="btn btn-primary">Submit</button>
+    {% endif %}
+    <input type="button" class="btn btn-primary" value="Cancel" onclick="window.location.href='/profilelist';">
+    </div>
+    </div>
+</form>
+
+
+{% endblock %}
+    

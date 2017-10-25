@@ -1,0 +1,5 @@
+---
+- hosts: local
+
+  roles:
+    - { role: "install-{{ role_name }}", become: false }

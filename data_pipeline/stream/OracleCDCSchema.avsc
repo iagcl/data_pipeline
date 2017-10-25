@@ -1,0 +1,18 @@
+{
+     "type": "record",
+     "name": "OracleCDCSchema",
+     "fields": [
+       { "name": "record_type", "type": "string", "default": "DATA" },
+       { "name": "batch_id", "type": "string", "default": "0" },
+       { "name": "record_count", "type": "int", "default": 0 },
+       { "name": "operation_code", "type": "string" },
+       { "name": "table_name", "type": "string" },
+       { "name": "statement_id", "type": "string" },
+       { "name": "commit_lsn", "type": "string" },
+       { "name": "commit_timestamp", "type": "string" },
+       { "name": "message_sequence", "type": "string" },
+       { "name": "multiline_flag", "type": "string" },
+       { "name": "commit_statement", "type": "string" },
+       { "name": "primary_key_fields", "type": "string" }
+     ]
+} 

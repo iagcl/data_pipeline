@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p class="text-primary font-weight-bold" style="font-size:18px;">Profile Details</p>  
+<form action"." method="POST">
+<table class="table">
+  <tr>
+    <td>
+      <label for="profile_name" style="font-size:16px;">Profile Name</label>
+      <input class="form-control" name="profile_name" id="profile_name" type="text" value="{{ profile_header.profile_name }}" disabled >
+    </td>
+    <td>
+      <label for="version" style="font-size:16px;">Version</label>
+      <input class="form-control" name="version" id="version" type="text" value="{{ profile_header.version }}" disabled >
+    </td>   
+    <td>
+      <label for="source_system_code" style="font-size:16px;">Source System</label>
+      <input class="form-control" name="source_system_code" id="source_system_code" type="text" value="{{ profile_header.source_system_code }}" disabled >    
+    <td>
+      <label for="profile" style="font-size:16px;">Target System</label>
+      <input class="form-control" name="target_system_code" id="target_system_code" type="text" value="{{ profile_header.target_system_code }}" disabled >    
+    </td>
+    <td style="vertical-align:bottom;"> 
+      {% if g.user.is_authenticated %}
+      <input TYPE="button" class="btn btn-primary" VALUE="Add New Item"
+        onclick="window.location.href='/profileitemschemalist/{{ profile_header.id }}';"> 
+       {% endif %}
+       <input TYPE="button" class="btn btn-primary" VALUE="Return to Profiles List"
+        onclick="window.location.href='/profilelist';"> 
+    </td>
+  </tr>
+</table>
+</form>  
+  
+  <table class="table table-striped">
+    <thead>
+        <th>Seq No</th>
+        <th>Schema</th>
+        <th>Object Name</th>
+        <th>Active</th>
+        <th>Min LSN</th>
+        <th>Max LSN</th>
+        <th>Last Status</th>
+        <th>Last RunID</th>
+        <th>Last Process</th>
+        <th>Last Updated</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% for profile in profile_details %}
+        <tr>       
+           <td>{{ profile.object_seq|safe }}</td> 
+           <td>{{ profile.source_region|safe }}</td> 
+           <td><a href="/profileitemupdate/{{ profile.id|safe }}">{{ profile.object_name|safe }}</a></td> 
+           <td>{{ profile.active_ind|safe }}</td> 
+           <td>{{ profile.min_lsn|safe }}</td> 
+           <td>{{ profile.max_lsn|safe }}</td> 
+           <td>{{ profile.last_status|safe }}</td> 
+           <td>{{ profile.last_run_id|safe }}</td> 
+           <td>{{ profile.last_process_code|safe }}</td> 
+           <td>{{ profile.last_updated|safe }}</td> 
+           <td>
+           {% if g.user.is_authenticated %}
+           <input TYPE="button" class="btn btn-primary btn-xs" VALUE="Delete" onclick="window.location.href='/profileitemdelete/{{ profile.id|safe }}';"> 
+           {% else %}&nbsp;
+           {% endif %}
+           </td>
+        </tr>
+        {% endfor %}
+     </tbody>
+  </table>
+
+
+{% endblock %}

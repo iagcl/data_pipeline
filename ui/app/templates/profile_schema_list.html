@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p class="text-primary font-weight-bold" style="font-size:18px;">Add a new System Profile Wizard</p>
+  
+
+   <div class="progress">
+     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="3" style="width: 66%;">
+       Step 2 of 3
+     </div>
+   </div>
+  
+   <div class="navbar">
+      <div class="navbar-inner">
+            <ul class="nav nav-pills">
+              <li><a href="#">1. Profile Details</a></li>
+               <li class="active"><a href="#">2. Select Schemas</a></li>
+               <li><a href="#">3. Select Objects</a></li>
+               <li><a href="#">DONE</a></li>
+            </ul>
+      </div>
+    </div>
+    <hr>   
+<form class="form" action"." method="POST">
+  
+  <div class="form-group">
+      <label for="status">Schemas</label>
+
+      {% for schema in schemas %}
+      <div class="checkbox">
+         <label><input type="checkbox" name="{{schema[0]}}" value="Y"> {{schema[0]}}</label>
+      </div>
+
+      {% endfor %}
+    <button type="submit" class="btn btn-primary" id="search-form" name="search-form" >Next</button> 
+ 
+  </div>
+</form>   
+ 
+
+{% endblock %}

@@ -1,0 +1,117 @@
+---
+
+# Base config
+# ###########
+
+# Source database type: [ oracle | mssql | postgres | greenplum ]
+sourcedbtype: oracle
+
+# Source system identifier (code)
+sourcesystem: MYSOURCESYSTEM
+
+
+# Schema name containing process audit tables
+auditschema: auditschema
+
+# Process audit user credentials requried for logging processing metrics
+audituser: myusername/mypassword@audithost:1234/auditdb
+
+
+# Stream host name / kafka cluster host
+streamhost: streamhost:9092
+
+# Stream channel name / kafka topic
+streamchannel: mytopic
+
+# Stream group identifer / kafka consumer group
+streamgroup: mygroup
+
+# Stream schema host name / kafka cluster host
+streamschemahost: http://schemahost:8081
+
+# Stream schema file
+streamschemafile: /path/to/OracleCDCSchema.avsc
+
+
+# List of table(s) held as an application profile in process
+# control database
+profilename: myprofilename
+
+# Application profile version number
+profileversion: 1
+
+
+# Output working directory
+workdirectory: /path/to/workdir
+
+# Verbose mode
+verbose: True
+
+
+# Hostname of the smtp server for sending emails
+notifysmtpserver: mysmtphost.corp
+
+# Sender email address used when sending notification emails
+notifysender: datapipeline_prod@mail.com
+
+# List of recipient email addresses who will
+# receive notifications upon an error in the application
+notifyerrorlist: [alice@error.com, bob@error.com]
+
+# List of recipient email addresses who will
+# receive notifications of summary details and statistics upon
+# completion of a run
+notifysummarylist: [alice@summary.com, bob@summary.com]
+
+
+# When looping over a large number of records,
+# this will log audit updates every given number of records
+auditcommitpoint: 1000
+
+# Name of file where data is written to prior to being sent to
+# an external source
+outputfile: applier_output.dat
+
+# Name of file where raw extract source output is written to
+rawfile: applier_output.raw
+
+# Use this sslmode for the database connection
+# (default: prefer)
+sslmode: prefer
+
+# The file path of the client SSL certificate
+# (default: $HOME/.postgresql/postgresql.crt)
+sslcert: /path/to/postgresql.crt
+
+# The  file path of the secret key used for the client certificate
+# (default: $HOME/.postgresql/postgresql.key)
+sslkey: /path/to/postgresql.key
+
+# This parameter specifies the file name of the SSL certificate
+# revocation list (CRL). Certificates listed in this file, if it
+# exists, will be rejected while attempting to authenticate the
+# server's certificate
+# (default: $HOME/.postgresql/root.crl)
+sslcrl: /path/to/root.crl
+
+# source data character encoding
+clientencoding: utf-8
+
+# Extractor specific config
+# #########################
+
+# Source database user credentials in the form:
+# dbuser/dbpasswd@SRCSID[:PORT] (default: None)
+sourceuser: myusername/mypassword@sourcehost:1234/sourcedb
+
+# Source dictionary to use when running logminer (default: online)
+sourcedictionary: online
+
+# Enables checking of existing extracts with the same
+# profile name and version which are currently in progress.
+# Use this to prevent multiple extract process from running
+# concurrently.
+checkexistingextract: True
+
+# number of archived logs to scan (default: None)
+scanlogs: 6

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<p><h4>Log Files</h4></p>    
+      
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>File Name</th>
+      </tr>
+    </thead>
+    <tbody>
+	    {% for file in files %}
+        <tr>
+           <td><a href="/viewfile/{{ file|safe }}">{{ file}}</a></td>
+        </tr>
+       {% endfor %}
+     </tbody>
+  </table>
+
+{% endblock %}

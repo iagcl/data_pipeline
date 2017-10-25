@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p class="text-primary font-weight-bold" style="font-size:18px;">Process Details</p>  
+<form action"." method="POST">
+<table class="table">
+  <tr>
+    <td>
+      <label for="runid" style="font-size:16px;">RunID</label>
+      <input class="form-control" name="runid" id="runid" type="text" value="{{ runid }}" disabled >
+    </td>
+    <td>
+      <label for="process" style="font-size:16px;">Process</label>
+      <input class="form-control" name="process" id="process" type="text" value="{{ process }}" disabled >
+    </td> 
+    <td>
+      <label for="total_objects" style="font-size:16px;">Total Objects</label>
+      <input class="form-control" name="total_objects" id="total_objects" type="text" value="{{ processControlDetail.count() }}" disabled >
+    </td>
+    <td>
+      <label for="order_by" style="font-size:16px;">Order By</label>   
+      <select class="form-control" name="order_by" id="order_by">
+        <option value="object_name" selected>Object Name</option>
+        <option value="status">Status</option>
+        <option value="process_starttime">Start Time</option>
+      </select>
+    </td>
+    <td style="vertical-align:bottom;"> 
+      <button type="submit" class="btn btn-primary" name="submit-form" >Submit</button>
+    </td>
+  </tr>
+</table>
+</form>  
+ 
+  <table class="table table-sm table-striped table-responsive">
+    <thead>
+       <tr>
+        <th>Object Name</th>  
+        <th>Status</th> 
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Duration</th>        
+        <th>Total Rows</th>
+        <th>Inserts</th>
+        <th>Updates</th>
+        <th>Deletes</th>
+        <th>Bad</th>
+        <th>Alters</th>
+        <th>Creates</th>
+        <th>Start LSN</th>
+        <th>End LSN</th>
+        <th>Errors</th>
+        <th>Info</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% for process in processControlDetail %}
+        <tr>
+           <td>{{ process.object_name|safe }}</td>         
+           <td>{{ process.status|safe }}</td>       
+           <td class="text-nowrap">{%if process.process_starttime %}{{ process.process_starttime.strftime('%Y-%m-%d %H:%M:%S')|safe }} {% else %}&nbsp;{% endif %}</td> 
+           <td class="text-nowrap">{%if process.process_endtime %}{{ process.process_endtime.strftime('%Y-%m-%d %H:%M:%S')|safe }} {% else %}&nbsp;{% endif %}</td> 
+           <td class="text-right">{{ process.duration|round(1)|safe }}</td>      
+           <td class="text-center">{{ process.source_row_count|safe }}</td> 
+           <td class="text-center">{{ process.insert_row_count|safe }}</td> 
+           <td class="text-center">{{ process.update_row_count|safe }}</td> 
+           <td class="text-center">{{ process.delete_row_count|safe }}</td> 
+           <td class="text-center">{{ process.bad_row_count|safe }}</td>
+           <td class="text-center">{{ process.alter_count|safe }}</td>
+           <td class="text-center">{{ process.create_count|safe }}</td>
+           <td>{{ process.delta_startlsn|safe }}</td> 
+           <td>{{ process.delta_endlsn|safe }}</td> 
+           <td>{%if process.errorlog %} <a href="/viewfile/{{ process.errorlog.replace("/","|")|safe }}">view</a> {% else %}&nbsp;{% endif %}</td> 
+           <td>{%if process.infolog %} <a href="/viewfile/{{ process.infolog.replace("/","|")|safe }}">view</a> {% else %}&nbsp;{% endif %}</td> 
+           <td class="text-nowrap">{{ process.comment|safe }}</td> 
+        </tr>
+        {% endfor %}
+     </tbody>
+  </table>
+
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p class="text-primary font-weight-bold" style="font-size:18px;">Confirm to delete the following scheduled job</p>    
+
+
+<form method=post class="form-horizontal">
+  <div class="form-group row">
+    <label for="job_name" class="col-sm-2 col-form-label">Job Name</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" value="{{job.name|safe}}" id="name" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="trigger" class="col-sm-2 col-form-label">Trigger</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" value="{{job.trigger|safe}}" id="trigger" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="next_run_time" class="col-sm-2 col-form-label">Next Run Time</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" value="{{job.next_run_time|safe}}" id="source_system_code" disabled>
+    </div>
+  </div>
+
+  
+  <div class="control-group">
+    <div class="controls">
+    <!-- The form submit buttons -->   
+      <button type="submit" class="btn btn-primary">Delete</button>
+      <input type="button" class="btn btn-default" name="cancel" value="Cancel" onClick="window.location.href='/schedulelist';" >
+    </div>
+  </div>
+</form>
+
+{% endblock %}
+    

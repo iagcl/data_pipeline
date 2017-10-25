@@ -1,0 +1,170 @@
+---
+
+# Base config
+# ###########
+
+# Source database type: [ oracle | mssql | postgres | greenplum ]
+sourcedbtype: oracle
+
+# Source system identifier (code)
+sourcesystem: MYSOURCESYSTEM
+
+
+# Schema name containing process audit tables
+auditschema: auditschema
+
+# Process audit user credentials requried for logging processing metrics
+audituser: myusername/mypassword@audithost:1234/auditdb
+
+
+# Stream host name / kafka cluster host
+streamhost: streamhost:9092
+
+# Stream channel name / kafka topic
+streamchannel: mytopic
+
+# Stream group identifer / kafka consumer group
+streamgroup: mygroup
+
+# Stream schema host name / kafka cluster host
+streamschemahost: http://schemahost:8081
+
+# Stream schema file
+streamschemafile: /path/to/OracleCDCSchema.avsc
+
+
+# List of table(s) held as an application profile in process
+# control database
+profilename: myprofilename
+
+# Application profile version number
+profileversion: 1
+
+
+# Output working directory
+workdirectory: /path/to/workdir
+
+# Verbose mode
+verbose: True
+
+
+# Hostname of the smtp server for sending emails
+notifysmtpserver: mysmtphost.corp
+
+# Sender email address used when sending notification emails
+notifysender: datapipeline_prod@mail.com
+
+# List of recipient email addresses who will
+# receive notifications upon an error in the application
+notifyerrorlist: [alice@error.com, bob@error.com]
+
+# List of recipient email addresses who will
+# receive notifications of summary details and statistics upon
+# completion of a run
+notifysummarylist: [alice@summary.com, bob@summary.com]
+
+
+# When looping over a large number of records,
+# this will log audit updates every given number of records
+auditcommitpoint: 1000
+
+# Name of file where data is written to prior to being sent to
+# an external source
+outputfile: applier_output.dat
+
+# Name of file where raw extract source output is written to
+rawfile: applier_output.raw
+
+# Use this sslmode for the database connection
+# (default: prefer)
+sslmode: prefer
+
+# The file path of the client SSL certificate
+# (default: $HOME/.postgresql/postgresql.crt)
+sslcert: /path/to/postgresql.crt
+
+# The  file path of the secret key used for the client certificate
+# (default: $HOME/.postgresql/postgresql.key)
+sslkey: /path/to/postgresql.key
+
+# This parameter specifies the file name of the SSL certificate
+# revocation list (CRL). Certificates listed in this file, if it
+# exists, will be rejected while attempting to authenticate the
+# server's certificate
+# (default: $HOME/.postgresql/root.crl)
+sslcrl: /path/to/root.crl
+
+# source data character encoding
+clientencoding: utf-8
+
+# InitSync specific config
+# ########################
+
+# Source database user credentials in the form:
+# dbuser/dbpasswd@SRCSID[:PORT] (default: None)
+sourceuser: myusername/mypassword@sourcehost:1234/sourcedb
+
+
+# Target database user credentials in the form: dbuser/dbpasswd@SRCSID[:PORT]
+targetuser: myusername/mypassword@targethost:1234/targetdb
+
+# Schema name where target tables reside (default: None)
+targetschema: targetschema
+
+# Target database type: [ oracle | mssql | greenplum | postgres ]
+targetdbtype: postgres
+
+
+# Full path to the yaml config file containing the source->target data type
+# mappings
+datatypemap: /path/to/conf/postgres_datatype_mappings.yaml
+
+# Enable metadata columns to be populated on target. It must be in
+# json format of supported metadata columns paired with their
+# respective target metadata column names.
+# For example: { "insert_timestamp_column": "ctl_ins_ts", "update_timestamp_column": "ctl_upd_ts" }.
+# Supported metadata columns are:
+#   [insert_timestamp_column, update_timestamp_column]
+# (default: None)
+metacols: { "insert_timestamp_column" : "ctl_ins_ts", "update_timestamp_column" : "ctl_upd_ts" }
+
+# Size, in bytes, of the buffer used to read data into before flushing to
+# target (default: 8192)
+buffersize: 1000000
+
+# Specifies the number of rows to fetch at a time
+# internally and is the default number of rows to fetch with the fetchmany()
+# call.  Note this attribute can drastically affect the performance of a query
+# since it directly affects the number of network round trips that need to be
+# performed (default: 1000)
+arraysize: 5000
+
+# Pool size of available processes for executing initsync. A process will be
+# dedicated for each table being synced (default: number of cpus on machine)
+numprocesses: 3
+
+# Truncate tables on target prior to initsync (default: False)
+truncate: False
+
+# Delete table records on target prior to initsync
+delete: True
+# Extra sql condition added to extraction query
+querycondition: None
+
+# Enables capturing of the source lsn at the point of extract.
+# Note, this will only be used on source databases that support the concept
+# of an LSN/SCN/transactionid
+extractlsn: True
+
+# Executes an ANALYZE on target DB after successful apply
+analyze: True
+
+# Executes a VACCUM FULL on target DB per table after successful apply
+vacuum: True
+
+# Seconds to wait before timing out. By default, initsync will wait indefinitely for extractor
+extracttimeout: None
+
+# Execute extraction query without share lock
+lock: False
+

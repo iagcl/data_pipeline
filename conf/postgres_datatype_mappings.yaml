@@ -1,0 +1,63 @@
+---
+
+oracle:
+    number: &number
+        default: 
+            target: numeric
+        rules:
+            - target: smallint
+              precision:
+                start: 1
+                end: 4
+              keep_params: False
+                  
+            - target: integer
+              precision:
+                start: 5
+                end: 9
+              keep_params: False
+
+            - target: bigint
+              precision:
+                start: 10
+                end: 18
+              keep_params: False
+
+    float:
+        << : *number
+    integer: 
+        << : *number
+    real: 
+        << : *number
+    double: 
+        << : *number
+
+    char: &char
+        default: 
+            target: char
+    nchar:
+        << : *char 
+
+    varchar: &varchar
+        default:
+            target: varchar
+    varchar2: 
+        << : *varchar 
+    nvarchar2:
+        << : *varchar 
+
+    date:
+        default:
+            target: date
+
+    time:
+        default:
+            target: time
+
+    timestamp: 
+        default:
+            target: timestamp
+
+    raw:
+        default:
+            target: bytea
