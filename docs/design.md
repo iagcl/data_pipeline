@@ -1,5 +1,8 @@
 # Data Pipeline Design
 
+| [Overview](/README.md) | [Initial Setup](/docs/INITIAL_SETUP.md) | Design |
+|----|----|----|
+
 ## High Level Design
 The following image illustrates a high-level design of the data pipeline application. 
 It is very broadly grouped into two classes of functionality: Extractors and Appliers.
