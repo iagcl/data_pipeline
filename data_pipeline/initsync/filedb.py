@@ -1,6 +1,6 @@
 ###############################################################################
-# Module:    oracledb
-# Purpose:   Contains oracle specific initsync functions
+# Module:    filedb
+# Purpose:   Contains file specific initsync functions
 #
 # Notes:
 #
@@ -40,9 +40,12 @@ class FileDb(InitSyncDb):
         For example, if tablename = 'foo', then FileDb match any of the
         following file names (and use the first matching one):
             - foo.bar
+            - foo.bar.gz
+            - foo.bar.bz2
             - foo.csv
         but will not match the following:
             - foobar.csv
+            - foobar.csv.gz
             - foo-bar.csv
             - foo_bar.csv
         """

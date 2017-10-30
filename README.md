@@ -253,7 +253,7 @@ Please refer to conf/sample_extractor_config.yaml for an example config file.
 python -m data_pipeline.extract --config /path/to/extractor_config.yaml
 ```
 
-### Applieri!
+### Applier
 
 Please refer to conf/sample_applier_config.yaml for an example config file.
 ```
